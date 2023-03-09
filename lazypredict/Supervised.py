@@ -307,7 +307,8 @@ class LazyClassifier:
                 b_accuracy = balanced_accuracy_score(y_test, y_pred)
                 f1 = f1_score(y_test, y_pred, average="weighted")
                 try:
-                    roc_auc = roc_auc_score(y_test, y_pred)
+                    y_score = pipe.predict(X_test, output_margin=True)
+                    roc_auc = roc_auc_score(y_test, y_score)
                 except Exception as exception:
                     roc_auc = None
                     if self.ignore_warnings is False:
